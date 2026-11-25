@@ -513,7 +513,8 @@ func main() {
 		}
 	}
 	mux.HandleFunc("/home-1", homePage("home-1.html"))
-	mux.HandleFunc("/home-2", homePage("home-2.html"))
+	mux.HandleFunc("/home-2", homePage("index.html"))
+	mux.HandleFunc("/home-9", homePage("home-9.html"))
 	mux.HandleFunc("/home-3", homePage("home-3.html"))
 	mux.HandleFunc("/home-4", homePage("home-4.html"))
 	mux.HandleFunc("/home-5", homePage("home-5.html"))
