@@ -223,6 +223,7 @@ body.i3 .top,body.i3 .chips,body.i3 .copy,body.i3 .wm,body.i3 .help,body.i3 #fr,
 #st3 .wvs path{fill:#7fd0ff22;stroke:#cfeeff;stroke-width:1.8;fill-rule:evenodd}
 body:not(.i3) #st3 .it .cmp,body:not(.i3) #st3 .it .lab{pointer-events:auto;cursor:pointer}
 body:not(.i3) #st3 .it:hover .cmp img,body:not(.i3) #st3 .it:hover .cmp svg{filter:brightness(1.18) drop-shadow(0 0 14px #7fd0ff)}
+@media(max-width:859px){#st3 .sa{left:50%}#st3 .lab{font-size:26px;max-width:300px}.wm{display:none!important}#st3.scr{pointer-events:auto;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;-webkit-mask-image:linear-gradient(transparent 0,#000 18px,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(transparent 0,#000 18px,#000 calc(100% - 26px),transparent)}#st3.scr::-webkit-scrollbar{display:none}}
 @media(prefers-reduced-motion:reduce){.aurora::before{animation:none}}
 </style><script src="/defaults.js"></script>
 </head><body class="dots i3">
@@ -358,6 +359,8 @@ const NODES=[
  {s:4,x:1150,y:785,r:[[1020,565],[1020,650],[1060,650],[1060,756]]},
  {s:5,x:810,y:730,r:[[900,565],[900,640],[882,640],[882,692]]},
  {s:3,x:430,y:575,r:[[842,512],[700,512],[700,575],[585,575]]}].filter(n=>S[n.s]);
+let SCR=0;const MOB=innerWidth<860;
+if(MOB){NODES.length=0;S.forEach((_,k)=>{const side=k%2?1:-1,x=960+side*195,y=490+330+k*215;NODES.push({s:k,x,y,r:[[960,540],[960,y],[x-side*150,y]]})})}
 const rp=(pts,r=16)=>{let d="M"+pts[0].join(" ");for(let i=1;i<pts.length-1;i++){const[a,b,c]=[pts[i-1],pts[i],pts[i+1]],l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k1=Math.min(r,l1/2)/l1,k2=Math.min(r,l2/2)/l2;d+=` L${(b[0]-(b[0]-a[0])*k1).toFixed(1)} ${(b[1]-(b[1]-a[1])*k1).toFixed(1)} Q${b[0]} ${b[1]} ${(b[0]+(c[0]-b[0])*k2).toFixed(1)} ${(b[1]+(c[1]-b[1])*k2).toFixed(1)}`}return d+" L"+pts[pts.length-1].join(" ")};
 const R=([x,y])=>[x,y];
 const wires=NODES.map((n,i)=>{const d=(.15+i*.1).toFixed(2)+"s",p=rp(n.r),e=n.r[n.r.length-1];return`<g style="--d:${d}"><path class="w0" d="${p}"/><path class="w1" pathLength="1" d="${p}"/><path class="w2" pathLength="1" d="${p}"/><circle class="dn" cx="${e[0]}" cy="${e[1]}" r="9"/></g>`}).join("");
@@ -365,7 +368,8 @@ const cards=NODES.map((n,i)=>`<div class="cw" style="--x:${n.x-H0[0]}px;--y:${n.
 const items=NODES.map((n,i)=>`<div class="it" data-s="${n.s}" style="--x:${n.x-H0[0]}px;--y:${n.y-H0[1]}px;--k:${(.15+i*.1+1.3).toFixed(2)}s;--f:${(i*.37%2).toFixed(2)}s;z-index:${Math.round(n.y)}"><div class="cmp"><div>${M(IM[n.s],C.services[n.s].inv?"inv":"")}</div></div><div class="lab">${S[n.s][1]}</div></div>`).join("");
 const orb=(D,sp)=>`<div class="ob" style="--D:${D}px;--sp:${sp}s"><i></i></div>`;
 st.innerHTML=`<div class="sa" id="sa"><div class="ly">${orb(820,16)+orb(1200,24).replace("<i>","<i style=\"animation-direction:reverse\">")+orb(1600,34)}</div><div class="ly la"><svg class="wires" viewBox="0 0 1897 895">${wires}</svg><div class="sl s2" id="s2"></div><div class="sl s1" id="s1"></div>${cards}<div class="ib" id="ib"><svg class="pr3" viewBox="0 0 108 108" fill="none"><path d="M1 54V38A37 37 0 0 1 38 1H70A37 37 0 0 1 107 38V70A37 37 0 0 1 70 107H38A37 37 0 0 1 1 70Z" pathLength="100" stroke="#3fa9e0" stroke-opacity=".2" stroke-width="2"/><path id="arc" d="M1 54V38A37 37 0 0 1 38 1H70A37 37 0 0 1 107 38V70A37 37 0 0 1 70 107H38A37 37 0 0 1 1 70Z" pathLength="100" stroke="#7fd0ff" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0 100" style="filter:drop-shadow(0 0 6px #3fa9e0)"/><path id="hd" d="M1 54V38A37 37 0 0 1 38 1H70A37 37 0 0 1 107 38V70A37 37 0 0 1 70 107H38A37 37 0 0 1 1 70Z" pathLength="100" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 100" style="filter:drop-shadow(0 0 10px #7fd0ff)"/></svg><div class="fc" id="fc"></div><div class="ip" id="ip">${mk(["shield"])+mk(["ring","line"])+mk(["arc1"])+mk(["arc2"])+mk(["arc3"])}</div><div class="wvs" id="wvs">${mk(["shield"])+mk(["shield"])+mk(["shield"])}</div></div></div><div class="ly lb">${items}</div></div>`;
-function fit3(){const w=innerWidth,h=innerHeight,m=w<860;const s=m?w/1500:Math.min(w/1897,h/895)*1.0;st.style.setProperty("--s",s.toFixed(3));$("#sa").style.top=m?"56%":"52%";window.__s3=s}
+function msc(){if(SCR||!MOB)return;SCR=1;const sa=$("#sa"),hy=sa.getBoundingClientRect().top,cb=document.querySelector(".ctam"),dk=document.querySelector(".dock");let T=cb?cb.getBoundingClientRect().bottom+12:hy-150;T=Math.min(T,hy-110);const B=dk?Math.max(0,innerHeight-dk.getBoundingClientRect().top+6):80;st.style.top=T+"px";st.style.bottom=B+"px";sa.style.top=(hy-T)+"px";const pd=document.createElement("div");pd.style.cssText="position:absolute;left:0;width:1px;height:1px;top:"+Math.round((hy-T)+(2540-490+300)*(window.__s3||.5))+"px";st.appendChild(pd);st.classList.add("scr")}
+function fit3(){const w=innerWidth,h=innerHeight,m=w<860;const s=m?Math.min(w/760,.9):Math.min(w/1897,h/895)*1.0;st.style.setProperty("--s",s.toFixed(3));if(!SCR)$("#sa").style.top=m?"56%":"52%";window.__s3=s}
 st.addEventListener("click",e=>{const it=e.target.closest(".it");if(!it||document.body.classList.contains("i3"))return;const i=+it.dataset.s;Promise.resolve(go("services")).then(()=>setTimeout(()=>{const r=sh.querySelectorAll(".rw")[i];r&&r.scrollIntoView({behavior:"smooth",block:"center"})},350))});
 fit3();addEventListener("resize",fit3);
 let tx=0,ty=0,cx=0,cy=0;addEventListener("mousemove",e=>{tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5});
@@ -376,7 +380,7 @@ let tx=0,ty=0,cx=0,cy=0;addEventListener("mousemove",e=>{tx=e.clientX/innerWidth
 const f0=Math.min(3.2,Math.max(1,.62/(window.__s3||.75))),Sc=k=>`scale(${(k*f0).toFixed(3)})`;
 const at=(ms,fn)=>timers.push(setTimeout(fn,ms)),an=(el,kf,o)=>{const a=el.animate(kf,{fill:"forwards",...o});anims.push(a);return a};
 const FIN="translateY(0px) rotateX(50deg) rotateZ(45deg) scale(1.5)";
-function ui(){document.body.classList.remove("i3");const h=location.hash.slice(1);if(P[h])go(h,true)}
+function ui(){document.body.classList.remove("i3");msc();const h=location.hash.slice(1);if(P[h])go(h,true)}
 function final(fast){if(done)return;done=true;timers.forEach(clearTimeout);anims.forEach(a=>a.cancel());
  ib.style.transform=FIN;ib.style.borderRadius="26px";ib.style.borderColor="#cfeeff";ib.style.boxShadow="0 0 50px #7fd0ffcc,0 0 18px #fff6";pr.style.opacity=0;fc.style.opacity=1;
  lay.forEach(l=>{l.style.opacity=1;l.style.transform="none";l.style.filter="drop-shadow(0 0 10px #7fd0ff)";l.style.webkitMaskImage=l.style.maskImage="none"});
