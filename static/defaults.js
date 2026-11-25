@@ -10,6 +10,15 @@ window.DEFAULTS={
   "explore": "Explore our services",
   "get_in_touch": "Get in touch",
   "help_q": "Have any questions?",
+  "hero_cta": "Speak to an expert",
+  "quote_btn": "Request a quote",
+  "contact_btn": "WhatsApp us",
+  "ask_title": "Ask Topform",
+  "ask_sub": "Quick answers to what businesses in the UAE ask us most.",
+  "stats_title": "Built on experience",
+  "cl_title": "Trusted across the Emirates",
+  "svc_more": "Discover",
+  "why_tag": "Why choose us",
   "about_tag": "About",
   "about_title": "And it's innovative IT solutions",
   "about_p": "Topform Technologies is considered to be world-class IT sales and services, website design and development, with hardware company founded in 2010. Our goal is to commit on delivering bespoke customer service, 100% result oriented services to our valued customers.",
@@ -44,6 +53,20 @@ window.DEFAULTS={
   "branches_sub": "Visit our branches to find the nearest one to you.",
   "footer": "Topform Technologies LLC · Dubai, UAE"
  },
+ "hero_slides": [
+  "/img/sky1.jpg",
+  "/img/sky2.jpg",
+  "/img/sky3.jpg",
+  "/img/sky4.jpg"
+ ],
+ "ask": [
+  {"q": "What does Topform Technologies do?", "href": "#about"},
+  {"q": "Which CCTV and door access system fits my business?", "href": "#svc-0"},
+  {"q": "Can you build custom software and mobile apps?", "href": "#svc-4"},
+  {"q": "Do you set up PABX and office telephony?", "href": "#svc-2"},
+  {"q": "Do you offer annual maintenance contracts?", "href": "#contact"},
+  {"q": "Where are your branches?", "href": "#branches"}
+ ],
  "chips": [
   "CCTV",
   "Door Access",
